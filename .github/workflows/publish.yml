@@ -24,4 +24,4 @@ jobs:
       java: 8
       gradle_tasks: "publish"
       artifact_name: "installertools"
-      gradle_setup: "export SIGN_KEY_ALIAS=${{ secrets.SIGN_KEY_ALIAS }}"
+      gradle_setup: ${{ secrets.SIGN_KEY_ALIAS }}
