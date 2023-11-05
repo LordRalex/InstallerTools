@@ -3,13 +3,25 @@ name: Publish
 on:
   push:
     branches: [ "master" ]
+  workflow_call:
+    secrets:
+      SIGN_KEY_ALIAS:
+        required: true
+      SIGN_KEY_PASSWORD:
+        required: true
+      SIGN_KEYSTORE_PASSWORD:
+        required: true
+      SIGN_KEYSTORE_DATA:
+        required: true
 
 permissions:
   contents: read
 
 jobs:
   build:
-    uses: MinecraftForge/SharedActions/.github/workflows/gradle.yml@main
+    env:
+      SIGN_KEYSTORE_DATA: ${{ secrets.SIGN_KEYSTORE_DATA }}
+    uses: ./.github/workflows/shared/gradle.yml
     with:
       java: 8
       gradle_tasks: "publish"
